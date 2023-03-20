@@ -7,7 +7,7 @@ class Game {
     this.gameSpeed = speed;
 
     this.bg = null;
-    this.layers = ["sky", "clouds", "mountains", "trees", "ground"]; // Nombre de cada capa
+    this.layers = [1, 2, 3, 4, 5]; // Nombre de cada capa
     this.player = null;
     this.npc = [];
     this.enemies = [];
@@ -19,10 +19,10 @@ class Game {
     this.distance = 0;
   }
 
-  init() {
+  init(width, height) {
     this.canvas = document.getElementById("myCanvas");
-    this.canvas.height = 600;
-    this.canvas.width = 800;
+    this.canvas.width = width;
+    this.canvas.height = height;
     this.ctx = this.canvas.getContext("2d");
     this.bg = new Background(this.canvas, this.gameSpeed);
     this.loadImages();
@@ -88,11 +88,13 @@ class Game {
   }
 
   checkBulletCollision() {
-    for (const bullet of this.projectiles) {
+    for (let b = 0; b < this.projectiles.length; b++) {
+      const bullet = this.projectiles[b];
       if(!(bullet.pos.x + bullet.width < this.player.pos.x || bullet.pos.x > this.player.pos.x + this.player.width || bullet.pos.y + bullet.height < this.player.pos.y || bullet.pos.y > this.player.pos.y + this.player.height)) {
         this.lives--;
         console.log("Jugador pierde una vida. Restan:", this.lives);
-        this.projectiles.splice(this.projectiles.indexOf(bullet), 1);
+        this.projectiles.splice(this.projectiles[b], 1);
+        b--;
       }
     }
   }
@@ -125,8 +127,13 @@ class Game {
     this.npc.forEach(npc => npc.update());
     this.enemies.forEach(enemy => {
       enemy.update();
-      if(enemy.pos.x % 300 == 0) {
-        this.projectiles.push(enemy.shoot());
+      if(enemy.canShoot && enemy.pos.x - this.player.pos.x <= 1000) {
+        enemy.canShoot = false;
+        const interval = setInterval(() => {
+          if(enemy.bullets == 0) clearInterval(interval);
+          this.projectiles.push(enemy.shoot());
+          enemy.bullets--;
+        }, 800)
       }
     });
     this.projectiles.forEach(p => p.update());
@@ -144,10 +151,11 @@ class Game {
   calculateSpawn() {
     if(Math.floor(Math.random() * 2) && this.distance % 50 == 0) {
       const prob = 1 / (1 + this.wantedLevel / 20);
-      if(Math.random() < prob) {
-        this.npc.push(new NPC({x: this.canvas.width, y: this.canvas.height - this.groundHeight, width: 30, height: 50}))
+      const obj = {x: this.canvas.width + Math.floor(Math.random() * this.canvas.width / 4), y: this.canvas.height - this.groundHeight, width: 30, height: 50}
+      if(Math.random() < 0) {
+        this.npc.push(new NPC(obj))
       } else {
-        this.enemies.push(new Enemy({x: this.canvas.width, y: this.canvas.height - this.groundHeight, width: 30, height: 50}))
+        this.enemies.push(new Enemy(obj))
       }
     }
   }

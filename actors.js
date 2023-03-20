@@ -35,7 +35,7 @@ class Player extends Actor {
     this.checkControls();
     this.pos.y += this.speed.y;
     if (this.pos.y < this.groundHeight) {
-      this.speed.y += 0.6;
+      this.speed.y += 0.8;
     }
     if (this.pos.y >= this.groundHeight) {
       this.speed.y = 0;
@@ -46,7 +46,7 @@ class Player extends Actor {
 
   jump() {
     this.isJumping = true;
-    this.speed.y = -10;
+    this.speed.y = -12;
   }
 
   checkControls() {
@@ -100,6 +100,8 @@ class Bullet {
 class Enemy extends Actor {
   constructor({x, y, width, height}) {
     super({x, y, width, height});
+    this.canShoot = true;
+    this.bullets = 3;
   }
 
   draw(ctx) {
