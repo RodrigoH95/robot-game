@@ -1,23 +1,26 @@
 class Actor {
-  constructor({x, y, width, height}) {
+  constructor({x, y, width, height, img}) {
+    console.log("Imagen recibida", img);
     this.width = width;
     this.height = height;
     this.groundHeight = y;
     this.pos = { x, y };
+    this.isAlive = true;
     this.speed = {
       x: 5,
       y: 0
     }
-    // this.img = img;
+    this.img = img;
   }
 }
 
 class Player extends Actor {
-  constructor({x, y, width, height}) {
-    super({x, y, width, height});
+  constructor({x, y, width, height, img}) {
+    super({x, y, width, height, img});
     this.controls = new Controls();
     this.isJumping = false;
     this.isHitting = false;
+    this.frame = 0;
   }
 
   toggleControls() {
@@ -26,12 +29,14 @@ class Player extends Actor {
   }
 
   draw(ctx) {
-    ctx.fillStyle = "green";
-    // Reemplazar por img
-    ctx.fillRect(this.pos.x, this.pos.y, this.width, this.height);
+    // ctx.fillStyle = "green";
+    // // Reemplazar por img
+    // ctx.fillRect(this.pos.x, this.pos.y, this.width, this.height);
+      ctx.drawImage(this.img, (Math.floor(this.frame / 4)) % 4 * 64, 0, this.width, this.height, this.pos.x, this.pos.y, this.width, this.height);
   }
 
   update() {
+    this.frame ++;
     this.checkControls();
     this.pos.y += this.speed.y;
     if (this.pos.y < this.groundHeight) {
@@ -63,8 +68,8 @@ class Player extends Actor {
 }
 
 class NPC extends Actor {
-  constructor({x, y, width, height}) {
-    super({x, y, width, height});
+  constructor({x, y, width, height, img}) {
+    super({x, y, width, height, img});
   }
 
   draw(ctx) {
@@ -82,7 +87,6 @@ class Bullet {
   constructor ({x, y, speed}) {
     this.pos = { x, y};
     this.speed = speed;
-    // width y height necesarios para check de colisiones
     this.width = 15;
     this.height = 8;
   }
@@ -98,8 +102,8 @@ class Bullet {
 }
 
 class Enemy extends Actor {
-  constructor({x, y, width, height}) {
-    super({x, y, width, height});
+  constructor({x, y, width, height, img}) {
+    super({x, y, width, height, img});
     this.canShoot = true;
     this.bullets = 3;
   }
@@ -109,8 +113,9 @@ class Enemy extends Actor {
     ctx.fillRect(this.pos.x, this.pos.y, this.width, this.height);
   }
 
+  // Genera un proyectil en la posicion actual del enemigo
   shoot() {
-    return new Bullet({x: this.pos.x, y: this.pos.y + this.height / 4, speed: this.speed.x * 2});
+    return new Bullet({x: this.pos.x, y: this.pos.y + this.height / 4, speed: this.speed.x * 3});
   }
 
   update() {
