@@ -4,11 +4,16 @@ class GUI {
     this.puntaje = document.getElementById("puntaje");
   }
 
-  setVidas(vidas) {
+  mostrarVidas(vidas) {
     this.vidas.innerText = vidas;
   }
 
-  addPuntaje(puntaje) {
-    this.puntaje.innerText = Number(this.puntaje.innerText) + puntaje;
+  mostrarPuntaje(puntaje) {
+    this.puntaje.innerText = puntaje;
+  }
+
+  update(vidas, puntaje) {
+    this.mostrarVidas(vidas);
+    this.mostrarPuntaje(puntaje);
   }
 }

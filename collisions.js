@@ -26,8 +26,8 @@ class Collisions {
       if(!(npc.pos.x + npc.width < player.pos.x || npc.pos.x > player.pos.x + player.width || npc.pos.y + npc.height < player.pos.y || npc.pos.y > player.pos.y + player.height) && player.isHitting) {
         npc.speed = { x: -10, y: 20 };
         npc.isAlive = false;
-        // this.wantedLevel++;
-        // this.gui.addPuntaje(100);
+        player.increaseWantedLevel();
+        player.addScore(100);
       }
     }
   }
@@ -36,8 +36,7 @@ class Collisions {
     for (let b = 0; b < projectiles.length; b++) {
       const bullet = projectiles[b];
       if(!(bullet.pos.x + bullet.width < player.pos.x || bullet.pos.x > player.pos.x + player.width || bullet.pos.y + bullet.height < player.pos.y || bullet.pos.y > player.pos.y + player.height)) {
-        // this.lives--;
-        // this.gui.setVidas(this.lives);
+        player.lives--;
         projectiles.splice(projectiles[b], 1);
         b--;
       }

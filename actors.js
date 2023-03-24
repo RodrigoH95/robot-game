@@ -17,6 +17,10 @@ class Actor {
 class Player extends Actor {
   constructor({x, y, width, height, img}) {
     super({x, y, width, height, img});
+    this.speed.x += 2;
+    this.lives = 3;
+    this.score = 0;
+    this.wantedLevel = 1;
     this.controls = new Controls();
     this.isJumping = false;
     this.isHitting = false;
@@ -29,10 +33,10 @@ class Player extends Actor {
   }
 
   draw(ctx) {
-    // ctx.fillStyle = "green";
-    // // Reemplazar por img
-    // ctx.fillRect(this.pos.x, this.pos.y, this.width, this.height);
-      ctx.drawImage(this.img, (Math.floor(this.frame / 4)) % 4 * 64, 0, this.width, this.height, this.pos.x, this.pos.y, this.width, this.height);
+    ctx.fillStyle = "orange";
+    // Reemplazar por img
+    ctx.fillRect(this.pos.x, this.pos.y, this.width, this.height);
+    ctx.drawImage(this.img, (Math.floor(this.frame / 6)) % 6 * 64, 0, this.width, this.height, this.pos.x, this.pos.y, this.width, this.height);
   }
 
   update() {
@@ -52,6 +56,26 @@ class Player extends Actor {
   jump() {
     this.isJumping = true;
     this.speed.y = -12;
+  }
+
+  addScore(score) {
+    this.score += score;
+  }
+
+  getScore() {
+    return this.score;
+  }
+
+  getLives() {
+    return this.lives;
+  }
+
+  increaseWantedLevel() {
+    this.wantedLevel++;
+  }
+
+  getWantedLevel() {
+    return this.wantedLevel;
   }
 
   checkControls() {
