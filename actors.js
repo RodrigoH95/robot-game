@@ -33,9 +33,9 @@ class Player extends Actor {
   }
 
   draw(ctx) {
-    ctx.fillStyle = "orange";
-    // Reemplazar por img
-    ctx.fillRect(this.pos.x, this.pos.y, this.width, this.height);
+    // ctx.fillStyle = "orange";
+    // // Reemplazar por img
+    // ctx.fillRect(this.pos.x, this.pos.y, this.width, this.height);
     ctx.drawImage(this.img, (Math.floor(this.frame / 6)) % 6 * 64, 0, this.width, this.height, this.pos.x, this.pos.y, this.width, this.height);
   }
 

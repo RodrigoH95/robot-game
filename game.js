@@ -23,6 +23,7 @@ class Game {
   }
 
   startLoop() {
+    console.log("Inicia juego");
     this.animate();
   }
 
@@ -39,13 +40,13 @@ class Game {
 
   animate() {
     if (this.isPaused) return;
-    this.screen.clear();
     this.update();
     this.draw();
     requestAnimationFrame(this.animate.bind(this));
   }
 
   draw() {
+    this.screen.clear();
     const bg = this.scene.getBackground();
     const e = this.scene.getEntities();
     this.screen.draw(bg, e.player, e.npc, e.enemies, e.projectiles);

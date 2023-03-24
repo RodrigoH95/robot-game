@@ -17,6 +17,7 @@ class Scene {
     const bg = new Background(this.canvas.height, speed);
     bg.init(this.layers);
     this.bg = bg;
+    console.log("Inicia background");
   }
 
   createPlayer() {
