@@ -17,10 +17,12 @@ class Loader {
   static loadAsset(resource) {
     const id = resource.id;
     const img = new Image();
-    img.onload = this.resourcesToLoad--;
     img.src = resource.src;
     this.resources.push({id, img});
-    this.checkGameStart();
+    img.onload = function() {
+      this.resourcesToLoad--;
+      this.checkGameStart();
+    }.bind(this);
   }
 
   static getResource(id) {
