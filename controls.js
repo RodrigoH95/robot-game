@@ -18,6 +18,7 @@ class Controls {
   stop() {
     removeEventListener("keydown", this.handleKeyDown.bind(this));
     removeEventListener("keyup", this.handleKeyUp.bind(this));
+    Object.keys(this.keys).forEach(key => this.keys[key] = false);
   }
 
   handleKeyDown(key) {

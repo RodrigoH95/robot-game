@@ -3,6 +3,7 @@ class Collisions {
     this.checkPlayerMapCollision(player, canvas);
     this.checkNPCMapCollision(canvas, npcs);
     this.checkNPCMapCollision(canvas, enemies);
+    this.checkNPCMapCollision(canvas, projectiles);
     this.checkPlayerNpcCollision(player, npcs);
     this.checkPlayerNpcCollision(player, enemies);
     this.checkBulletCollision(player, projectiles);

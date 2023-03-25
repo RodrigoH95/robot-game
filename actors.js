@@ -25,6 +25,13 @@ class Player extends Actor {
     this.isJumping = false;
     this.isHitting = false;
     this.frame = 0;
+    this.actions = ["run", "hit", "jump"];
+    this.actionFrames = {
+      "run": 6,
+      "hit": 1,
+      "jump": 1,
+    }
+    this.currentAction = "run";
   }
 
   toggleControls() {
@@ -36,7 +43,7 @@ class Player extends Actor {
     // ctx.fillStyle = "orange";
     // // Reemplazar por img
     // ctx.fillRect(this.pos.x, this.pos.y, this.width, this.height);
-    ctx.drawImage(this.img, (Math.floor(this.frame / 6)) % 6 * 64, 0, this.width, this.height, this.pos.x, this.pos.y, this.width, this.height);
+    ctx.drawImage(this.img, (Math.floor(this.frame / 6)) % this.actionFrames[this.currentAction] * 64, this.actions.indexOf(this.currentAction) * this.height, this.width, this.height, this.pos.x, this.pos.y, this.width, this.height);
   }
 
   update() {
@@ -50,6 +57,14 @@ class Player extends Actor {
       this.speed.y = 0;
       this.pos.y = this.groundHeight;
       this.isJumping = false;
+    }
+
+    if(this.isHitting) {
+      this.currentAction = "hit";
+    } else if(this.isJumping) {
+      this.currentAction = "jump";
+    } else {
+      this.currentAction = "run";
     }
   }
 
@@ -86,7 +101,10 @@ class Player extends Actor {
     }
     if(this.controls.keys.space && !this.isHitting) {
       this.isHitting = true;
-      setTimeout(() => this.isHitting = false, 100);
+      console.log(this.currentAction);
+      setTimeout(() => {
+        this.isHitting = false
+      }, 100);
     }
   }
 }
