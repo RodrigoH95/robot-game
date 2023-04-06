@@ -1,6 +1,5 @@
 class Actor {
   constructor({x, y, width, height, img}) {
-    console.log("Imagen recibida", img);
     this.width = width;
     this.height = height;
     this.groundHeight = y;
@@ -11,6 +10,26 @@ class Actor {
       y: 0
     }
     this.img = img;
+    this.actions = [];
+    this.actionFrames = {};
+    this.currenAction;
+    this.frame = 0;
+    this.time = 0;
+  }
+
+  draw(ctx) {
+    // ctx.fillStyle = "orange";
+    // // Reemplazar por img
+    // ctx.fillRect(this.pos.x, this.pos.y, this.width, this.height);
+    ctx.drawImage(this.img, this.frame % this.actionFrames[this.currentAction] * 64, this.actions.indexOf(this.currentAction) * this.height, this.width, this.height, this.pos.x, this.pos.y, this.width, this.height);
+  }
+
+  update() {
+      if(++this.time == 5)
+      {
+        this.frame++;
+        this.time = 0;
+      }
   }
 }
 
@@ -25,10 +44,14 @@ class Player extends Actor {
     this.isJumping = false;
     this.isHitting = false;
     this.frame = 0;
+    this.time = 0;
+  }
+
+  init() {
     this.actions = ["run", "hit", "jump"];
     this.actionFrames = {
       "run": 6,
-      "hit": 1,
+      "hit": 6,
       "jump": 1,
     }
     this.currentAction = "run";
@@ -39,15 +62,15 @@ class Player extends Actor {
     this.controls.enabled ? this.controls.start() : this.controls.stop();
   }
 
-  draw(ctx) {
-    // ctx.fillStyle = "orange";
-    // // Reemplazar por img
-    // ctx.fillRect(this.pos.x, this.pos.y, this.width, this.height);
-    ctx.drawImage(this.img, (Math.floor(this.frame / 6)) % this.actionFrames[this.currentAction] * 64, this.actions.indexOf(this.currentAction) * this.height, this.width, this.height, this.pos.x, this.pos.y, this.width, this.height);
-  }
+  // draw(ctx) {
+  //   // ctx.fillStyle = "orange";
+  //   // // Reemplazar por img
+  //   // ctx.fillRect(this.pos.x, this.pos.y, this.width, this.height);
+  //   ctx.drawImage(this.img, this.frame % this.actionFrames[this.currentAction] * 64, this.actions.indexOf(this.currentAction) * this.height, this.width, this.height, this.pos.x, this.pos.y, this.width, this.height);
+  // }
 
   update() {
-    this.frame ++;
+    super.update();
     this.checkControls();
     this.pos.y += this.speed.y;
     if (this.pos.y < this.groundHeight) {
@@ -56,14 +79,14 @@ class Player extends Actor {
     if (this.pos.y >= this.groundHeight) {
       this.speed.y = 0;
       this.pos.y = this.groundHeight;
-      this.isJumping = false;
+      if(this.isJumping) this.isJumping = false;
     }
 
     if(this.isHitting) {
       this.currentAction = "hit";
     } else if(this.isJumping) {
       this.currentAction = "jump";
-    } else {
+    } else if (this.currenAction !== "run") {
       this.currentAction = "run";
     }
   }
@@ -101,10 +124,10 @@ class Player extends Actor {
     }
     if(this.controls.keys.space && !this.isHitting) {
       this.isHitting = true;
-      console.log(this.currentAction);
+      this.frame = 0;
       setTimeout(() => {
         this.isHitting = false
-      }, 100);
+      }, 300);
     }
   }
 }
@@ -112,14 +135,21 @@ class Player extends Actor {
 class NPC extends Actor {
   constructor({x, y, width, height, img}) {
     super({x, y, width, height, img});
+    this.actions = ["idle", "die"];
+    this.actionFrames = {
+      "idle": 2,
+      "die": 1,
+    }
+    this.currentAction = "idle";
   }
 
-  draw(ctx) {
-    ctx.fillStyle = "red";
-    ctx.fillRect(this.pos.x, this.pos.y, this.width, this.height);
-  }
+  // draw(ctx) {
+  //   ctx.fillStyle = "red";
+  //   ctx.fillRect(this.pos.x, this.pos.y, this.width, this.height);
+  // }
 
   update() {
+    super.update();
     this.pos.x -= this.speed.x;
     this.pos.y -= this.speed.y;
   }
@@ -134,7 +164,7 @@ class Bullet {
   }
 
   draw(ctx) {
-    ctx.fillStyle = "red";
+    ctx.fillStyle = "yellow";
     ctx.fillRect(this.pos.x, this.pos.y, this.width, this.height);
   }
 
@@ -148,19 +178,32 @@ class Enemy extends Actor {
     super({x, y, width, height, img});
     this.canShoot = true;
     this.bullets = 3;
+    this.actions = ["idle", "warning", "shoot", "die"];
+    this.actionFrames = {
+      "idle": 2,
+      "warning": 3,
+      "shoot": 2,
+      "die": 1,
+    }
+    this.currentAction = "warning";
   }
 
-  draw(ctx) {
-    ctx.fillStyle = "blue";
-    ctx.fillRect(this.pos.x, this.pos.y, this.width, this.height);
-  }
+  // draw(ctx) {
+  //   ctx.fillStyle = "blue";
+  //   ctx.fillRect(this.pos.x, this.pos.y, this.width, this.height);
+  // }
 
   // Genera un proyectil en la posicion actual del enemigo
   shoot() {
+    this.currentAction = "shoot";
+    setTimeout(() => {
+      this.currentAction = "idle";
+    }, 150);
     return new Bullet({x: this.pos.x, y: this.pos.y + this.height / 4, speed: this.speed.x * 3});
   }
 
   update() {
+    super.update();
     this.pos.x -= this.speed.x;
     this.pos.y -= this.speed.y;
   }

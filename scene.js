@@ -23,6 +23,7 @@ class Scene {
   createPlayer() {
     const player = new Player({x: 150, y: this.canvas.height - this.groundHeight, width: 64, height: 64, img: window.loader.getResource("player_sprite")});
     this.entities.player = player;
+    player.init();
     player.toggleControls();
   }
 
@@ -35,7 +36,14 @@ class Scene {
   }
 
   createNpc(type) {
-    const obj = { x: this.canvas.width + Math.floor(Math.random() * this.canvas.width / 4), y: this.canvas.height - this.groundHeight, width: 64, height: 64 }
+    let img = null;
+    if(type === "NPC"){
+      const npcNumber = Math.floor(Math.random() * 4 + 1) ;
+      img = window.loader.getResource(`npc${npcNumber}_sprite`);
+    } else {
+      img =  window.loader.getResource(`enemy_sprite`);
+    }
+    const obj = { x: this.canvas.width + Math.floor(Math.random() * this.canvas.width / 4), y: this.canvas.height - this.groundHeight, width: 64, height: 64, img }
     type === "NPC" ? this.entities.npc.push(new NPC(obj)) : this.entities.enemies.push(new Enemy(obj));
   }
 

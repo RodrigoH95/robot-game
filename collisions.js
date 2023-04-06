@@ -27,6 +27,7 @@ class Collisions {
       if(!(npc.pos.x + npc.width < player.pos.x || npc.pos.x > player.pos.x + player.width || npc.pos.y + npc.height < player.pos.y || npc.pos.y > player.pos.y + player.height) && player.isHitting) {
         npc.speed = { x: -10, y: 20 };
         npc.isAlive = false;
+        npc.currentAction = "die";
         player.increaseWantedLevel();
         player.addScore(100);
       }
