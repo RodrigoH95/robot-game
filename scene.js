@@ -10,7 +10,7 @@ class Scene {
       enemies: [],
       projectiles: []
     }
-    this.layers = [1, 2, 3, 4, 5]; // Nombre de cada capa del fondo
+    this.layers = ["paisaje2", "paisaje1", "ciudad", "suelo"]; // Nombre de cada capa del fondo
   }
 
   startBackground(speed) {

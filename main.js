@@ -32,9 +32,21 @@ const resources = [
   { 
     id: "5", src: "./img/5.png"
   },
+  { 
+    id: "ciudad", src: "./img/ciudad.png"
+  },
+  { 
+    id: "suelo", src: "./img/suelo.png"
+  },
+  { 
+    id: "paisaje1", src: "./img/paisaje_1.png"
+  },
+  { 
+    id: "paisaje2", src: "./img/paisaje_2.png"
+  },
 ]
 
-const game = new Game({speed: 5, groundHeight: 155});
+const game = new Game({speed: 5, groundHeight: 95});
 window.loader = Loader;
 loader.setGame(game);
 loader.loadResources(resources); // Carga recursos e inicia juego al terminar

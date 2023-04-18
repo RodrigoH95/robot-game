@@ -43,7 +43,6 @@ class Background {
   update() {
     for (const layer of this.layers) {
       layer.x -= this.gameSpeed * layer.speed;
-      if (layer.x == -this.layerWidth) layer.x = 0;
+      if (layer.x <= -this.layerWidth) layer.x = 0};
     }
   }
-}
