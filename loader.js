@@ -32,7 +32,7 @@ class Loader {
 
   static checkGameStart() {
     if (!this.resourcesToLoad) {
-      this.game.init(768, 432);
+      this.game.init();
     }
   }
 }

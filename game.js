@@ -1,6 +1,6 @@
 class Game {
-  constructor({speed, groundHeight}) {
-    this.screen = null;
+  constructor({speed, groundHeight, width, height}) {
+    this.screen = new Screen(width, height);
     this.scene = null;
     this.isPaused = false;
     this.groundHeight = groundHeight;
@@ -9,12 +9,10 @@ class Game {
     this.distance = 0;
   }
 
-  init(width, height) {
-    this.screen = new Screen(width, height);
+  init() {
     this.scene = new Scene(this.screen.getCanvas(), this.groundHeight);
-    this.scene.startBackground(this.gameSpeed);
+    this.scene.init(this.gameSpeed);
     this.gui = new GUI();
-    this.scene.createPlayer();
     // Pause
     window.addEventListener("keydown", key => {
       if (key.code === "KeyP") this.togglePause();
@@ -48,8 +46,9 @@ class Game {
   draw() {
     this.screen.clear();
     const bg = this.scene.getBackground();
-    const e = this.scene.getEntities();
-    this.screen.draw(bg, e.player, e.npc, e.enemies, e.projectiles);
+    const fg = this.scene.getForeground();
+    const { player, npc, enemies, projectiles } = this.scene.getEntities();
+    this.screen.draw(bg, player, npc, enemies, projectiles, fg);
   }
 
   update() {

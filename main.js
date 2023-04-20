@@ -18,6 +18,9 @@ const resources = [
     id: "enemy_sprite", src: "./img/enemy_sprite.png"
   },
   { 
+    id: "vacio", src: "./img/vacio.png"
+  },
+  { 
     id: "1", src: "./img/1.png"
   },
   { 
@@ -33,6 +36,9 @@ const resources = [
     id: "5", src: "./img/5.png"
   },
   { 
+    id: "cielo", src: "./img/cielo.png"
+  },
+  { 
     id: "ciudad", src: "./img/ciudad.png"
   },
   { 
@@ -46,7 +52,7 @@ const resources = [
   },
 ]
 
-const game = new Game({speed: 5, groundHeight: 95});
+const game = new Game({speed: 5, groundHeight: 95, width: 768, height: 432});
 window.loader = Loader;
 loader.setGame(game);
 loader.loadResources(resources); // Carga recursos e inicia juego al terminar

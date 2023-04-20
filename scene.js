@@ -4,20 +4,27 @@ class Scene {
     this.canvas = canvas;
     this.groundHeight = groundHeight;
     this.bg = null;
+    this.fg = null;
     this.entities = {
       player: null,
       npc: [],
       enemies: [],
       projectiles: []
     }
-    this.layers = ["paisaje2", "paisaje1", "ciudad", "suelo"]; // Nombre de cada capa del fondo
+    this.layers = ["cielo", "paisaje2", "paisaje1", "ciudad", "suelo"]; // Nombre de cada capa del fondo
+    this.flayers = ["vacio"];
   }
 
-  startBackground(speed) {
-    const bg = new Background(this.canvas.height, speed);
-    bg.init(this.layers);
-    this.bg = bg;
-    console.log("Inicia background");
+  init(speed) {
+    this.bg = this.createParallax(speed, this.layers);
+    this.fg = this.createParallax(speed, this.flayers);
+    this.createPlayer();
+  }
+
+  createParallax(speed, layers) {
+    const parallax = new Background(this.canvas.height, speed);
+    parallax.init(layers);
+    return parallax;
   }
 
   createPlayer() {
@@ -49,6 +56,10 @@ class Scene {
 
   getBackground() {
     return this.bg;
+  }
+
+  getForeground() {
+    return this.fg;
   }
 
   getEntities() {
@@ -96,6 +107,7 @@ class Scene {
 
   update() {
     this.bg.update();
+    this.fg.update();
     this.entities.player.update();
     this.entities.npc.forEach(npc => npc.update());
     this.entities.enemies.forEach(enemy => {
