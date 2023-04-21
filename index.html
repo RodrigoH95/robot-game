@@ -5,13 +5,26 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
   <title>Robot</title>
 </head>
 <body>
-  <div>Vidas: <span id="vidas">3</span></div>
-  <div>Puntaje: <span id="puntaje">0</span></div>
-  <canvas id="myCanvas"></canvas>
-  
+  <div class="container">
+    <div>Vidas: <span id="vidas">3</span></div>
+    <div>Puntaje: <span id="puntaje">0</span></div>
+    <canvas id="myCanvas"></canvas>
+    <div id="botones">
+      <div id="direccion">
+        <button class="btn action" id="left">Izquierda</button>
+        <button class="btn action" id="right">Derecha</button>
+      </div>
+      <div id="acciones">
+        <button class="btn action" id="jump">Salto</button>
+        <button class="btn action" id="attack">Golpe</button>
+      </div>
+    </div>
+  </div>
+
   <!-- SCRIPTS -->
   <script src="controls.js"></script>
   <script src="background.js"></script>
