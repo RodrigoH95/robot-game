@@ -35,14 +35,15 @@
 #botones {
   width: 90%;
   position: absolute;
-  display: flex;
-  top: 80%;
+  display: none;
+  top: 70%;
   left: 50%;
   transform: translate(-50%, 0);
   justify-content: space-between;
 }
 
 .btn {
+  opacity: 0.8;
   width: 3rem;
   height: 3rem;
   margin: 0.5rem;
@@ -69,5 +70,22 @@
     justify-content: center;
     font-size: 2rem;
     font-weight: 900;
+  }
+}
+
+
+@media screen and (max-width: 800px) {
+  #myCanvas {
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    height: 80%;
+    outline: 5px solid black;
+    border-radius: 5px;
+  }
+
+  #botones {
+    display: flex;
   }
 }
