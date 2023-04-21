@@ -10,6 +10,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  height: 100%;
   outline: 5px solid black;
   border-radius: 5px;
 }
@@ -26,8 +27,14 @@
   width: 90%;
   position: absolute;
   display: flex;
-  top: 75%;
+  top: 90%;
   left: 50%;
   transform: translate(-50%, 0);
-  justify-content: space-around;
+  justify-content: space-between;
+}
+
+@media screen and (orientation: portrait) {
+  * {
+    transform: rotate(-90deg);
+  }
 }
