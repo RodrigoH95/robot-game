@@ -80,7 +80,7 @@
   }
 
   #myCanvas {
-    width: 100%;
+    width: 90%;
   }
 
   #botones {
@@ -88,7 +88,7 @@
   }
 }
 
-/* @media screen and (max-height: 800px) {
+@media screen and (max-height: 800px) {
   #myCanvas {
     position: absolute;
     top: 5%;
@@ -102,4 +102,4 @@
   #botones {
     display: flex;
   }
-} */
+}
