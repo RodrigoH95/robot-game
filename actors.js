@@ -1,12 +1,12 @@
 class Actor {
-  constructor({x, y, width, height, img}) {
+  constructor({x, y, width, height, img, speed}) {
     this.width = width;
     this.height = height;
     this.groundHeight = y;
     this.pos = { x, y };
     this.isAlive = true;
     this.speed = {
-      x: 10,
+      x: speed,
       y: 0
     }
     this.img = img;
@@ -31,9 +31,8 @@ class Actor {
 }
 
 class Player extends Actor {
-  constructor({x, y, width, height, img}) {
-    super({x, y, width, height, img});
-    this.speed.x += 2;
+  constructor({x, y, width, height, img, speed}) {
+    super({x, y, width, height, img, speed});
     this.lives = 3;
     this.score = 0;
     this.wantedLevel = 1;
@@ -64,7 +63,7 @@ class Player extends Actor {
     this.checkControls();
     this.pos.y += this.speed.y;
     if (this.pos.y < this.groundHeight) {
-      this.speed.y += 2;
+      this.speed.y += 4;
     }
     if (this.pos.y >= this.groundHeight) {
       this.speed.y = 0;
@@ -83,7 +82,7 @@ class Player extends Actor {
 
   jump() {
     this.isJumping = true;
-    this.speed.y = -15;
+    this.speed.y = -25;
   }
 
   addScore(score) {
@@ -123,8 +122,8 @@ class Player extends Actor {
 }
 
 class NPC extends Actor {
-  constructor({x, y, width, height, img}) {
-    super({x, y, width, height, img});
+  constructor({x, y, width, height, img, speed}) {
+    super({x, y, width, height, img, speed});
     this.actions = ["idle", "die"];
     this.actionFrames = {
       "idle": 2,
@@ -159,8 +158,8 @@ class Bullet {
 }
 
 class Enemy extends Actor {
-  constructor({x, y, width, height, img}) {
-    super({x, y, width, height, img});
+  constructor({x, y, width, height, img, speed}) {
+    super({x, y, width, height, img, speed});
     this.canShoot = true;
     this.bullets = 3;
     this.actions = ["idle", "warning", "shoot", "die"];
@@ -170,6 +169,7 @@ class Enemy extends Actor {
       "shoot": 2,
       "die": 1,
     }
+    this.speed.x = speed;
     this.currentAction = "warning";
   }
 

@@ -59,7 +59,7 @@ class Game {
   }
 
   update() {
-    if(this.scene.getPlayerLives() == 0) {
+    if(this.scene.getPlayerLives() < 1) {
       this.gameOver();
     }
     this.scene.update();

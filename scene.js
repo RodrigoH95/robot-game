@@ -11,26 +11,28 @@ class Scene {
       enemies: [],
       projectiles: []
     }
+    this.gameSpeed = 0;
   }
 
   init(speed) {
+    this.gameSpeed = speed;
     // Obtencion de capas de fondo y frente ordenadas
     const bgLayers = window.loader.getResourceList("bg").map(layer => layer.id).sort((a, b) => a.split("_").pop() - b.split("_").pop());
     const fgLayers = window.loader.getResourceList("fg").map(layer => layer.id).sort((a, b) => a.split("_").pop() - b.split("_").pop());
 
-    this.bg = this.createParallax(speed, bgLayers);
-    this.fg = this.createParallax(speed, fgLayers);
+    this.bg = this.createParallax(bgLayers);
+    this.fg = this.createParallax(fgLayers);
     this.createPlayer();
   }
 
-  createParallax(speed, layers) {
-    const parallax = new Background(this.canvas.height, speed);
+  createParallax(layers) {
+    const parallax = new Background(this.canvas.height, this.gameSpeed);
     parallax.init(layers);
     return parallax;
   }
 
   createPlayer() {
-    const player = new Player({x: 150, y: this.canvas.height - this.groundHeight, width: 64, height: 64, img: window.loader.getResource("player_sprite")});
+    const player = new Player({x: 150, y: this.canvas.height - this.groundHeight, width: 64, height: 64, img: window.loader.getResource("player_sprite"), speed: this.gameSpeed + 3});
     this.entities.player = player;
     player.init();
     player.toggleControls();
@@ -46,14 +48,16 @@ class Scene {
 
   createNpc(type) {
     let img = null;
+    let speed = this.gameSpeed;
     if(type === "NPC"){
       const npcs = window.loader.getResourceList("npc");
       const npcNumber = Math.ceil(Math.random() * npcs.length) ;
       img = window.loader.getResource(`npc_sprite_${npcNumber}`);
+      speed++;
     } else {
       img =  window.loader.getResource(`enemy_sprite_1`);
     }
-    const obj = { x: this.canvas.width + Math.floor(Math.random() * this.canvas.width / 4), y: this.canvas.height - this.groundHeight, width: 64, height: 64, img }
+    const obj = { x: this.canvas.width + Math.floor(Math.random() * this.canvas.width / 4), y: this.canvas.height - this.groundHeight, width: 64, height: 64, img, speed }
     type === "NPC" ? this.entities.npc.push(new NPC(obj)) : this.entities.enemies.push(new Enemy(obj));
   }
 
@@ -85,21 +89,21 @@ class Scene {
     if(enemy.canShoot && enemy.pos.x - this.entities.player.pos.x <= 950) {
       enemy.canShoot = false;
       const interval = setInterval(() => {
-        if(enemy.bullets == 0 || !enemy.isAlive) return clearInterval(interval);
+        if(enemy.bullets == 0 || !enemy.isAlive || enemy.pos.x < this.entities.player.pos.x) return clearInterval(interval);
         const bullet = enemy.shoot();
         // Comprobar si el jugador está del lado derecho del proyectil
-        if(bullet.pos.x < this.entities.player.pos.x) {
-          bullet.speed *= -1;
-          bullet.pos.x += this.entities.player.width / 2; // para que el enemigo dispare desde el lado derecho
-        }
+        // if(bullet.pos.x < this.entities.player.pos.x) {
+        //   bullet.speed *= -1;
+        //   bullet.pos.x += this.entities.player.width / 2; // para que el enemigo dispare desde el lado derecho
+        // }
         this.entities.projectiles.push(bullet);
-      }, 800)
+      }, 1000)
     }
   }
 
   calculateSpawn(distance, wantedLevel) {
-    if(Math.floor(Math.random() * 2) && distance % 100 == 0) {
-      Math.random() < 1 / (1 + wantedLevel / 20) ? this.createNpc("NPC") : this.createNpc("Enemy");
+    if(distance % 30 == 0) {
+      Math.random() < 1 / (1 + wantedLevel / 80) ? this.createNpc("NPC") : this.createNpc("Enemy");
     }
   }
 
