@@ -11,7 +11,7 @@ class Layer {
 }
 
 class Background {
-  constructor(screenHeight, gameSpeed = 2) {
+  constructor(screenHeight, gameSpeed) {
     this.screenHeight = screenHeight;
     this.gameSpeed = gameSpeed;
     this.layers = [];

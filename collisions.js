@@ -23,7 +23,7 @@ class Collisions {
 
   static checkPlayerNpcCollision(player, npcArray) {
     for (const npc of npcArray) {
-      if(!(npc.pos.x + npc.width < player.pos.x || npc.pos.x > player.pos.x + player.width || npc.pos.y + npc.height < player.pos.y || npc.pos.y > player.pos.y + player.height) && player.isHitting) {
+      if(!(npc.pos.x + npc.width / 2 < player.pos.x || npc.pos.x > player.pos.x + player.width / 2 || npc.pos.y + npc.height < player.pos.y || npc.pos.y > player.pos.y + player.height) && player.isHitting) {
         npc.speed = { x: -10, y: 20 };
         npc.isAlive = false;
         npc.currentAction = "die";
@@ -36,7 +36,7 @@ class Collisions {
   static checkBulletCollision(player, projectiles) {
     for (let b = 0; b < projectiles.length; b++) {
       const bullet = projectiles[b];
-      if(!(bullet.pos.x + bullet.width < player.pos.x || bullet.pos.x > player.pos.x + player.width || bullet.pos.y + bullet.height < player.pos.y || bullet.pos.y > player.pos.y + player.height)) {
+      if(!(bullet.pos.x + bullet.width < player.pos.x || bullet.pos.x > player.pos.x + player.width / 2 || bullet.pos.y + bullet.height < player.pos.y || bullet.pos.y > player.pos.y + player.height)) {
         player.lives--;
         projectiles.splice(projectiles[b], 1);
         b--;

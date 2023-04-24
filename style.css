@@ -63,30 +63,32 @@
 }
 
 @media screen and (orientation: portrait) {
-  * {
-    transform: rotate(-90deg);
-    overflow: hidden;
+  html {
+      transform: rotate(-90deg);
+      transform-origin: left top;
+      width: 100vh;
+      height: 100vw;
+      overflow-x: hidden;
+      position: absolute;
+      top: 100%;
+      left: 0;
+  }
+
+  .container {
+    width: 100vh;
+    height: 100vw;
   }
 
   #myCanvas {
-    height: auto;
     width: 100%;
   }
 
   #botones {
-    display: none;
-  }
-
-  .error {   
     display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2rem;
-    font-weight: 900;
   }
 }
 
-@media screen and (max-height: 800px) {
+/* @media screen and (max-height: 800px) {
   #myCanvas {
     position: absolute;
     top: 5%;
@@ -100,4 +102,4 @@
   #botones {
     display: flex;
   }
-}
+} */

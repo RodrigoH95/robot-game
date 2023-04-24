@@ -19,7 +19,7 @@ const resources = [
   { id: "bg_suelo_4", src: "./img/suelo.png" },
 ]
 
-const game = new Game({speed: 10, groundHeight: 100, width: 768, height: 432});
+const game = new Game({speed: 8, groundHeight: 100, width: 768, height: 432});
 window.loader = Loader;
 loader.setGame(game);
 loader.loadResources(resources); // Carga recursos e inicia juego al terminar

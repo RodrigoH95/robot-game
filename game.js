@@ -41,7 +41,7 @@ class Game {
   animate(time) {
     let now = time;
     let dif = now - this.lastFrameDt;
-    if (dif > 1000/ this.fps) {
+    if (dif > 1000 / this.fps) {
       this.lastFrameDt = now;
       if (this.isPaused) return;
       this.update();
