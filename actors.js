@@ -18,9 +18,6 @@ class Actor {
   }
 
   draw(ctx) {
-    // ctx.fillStyle = "orange";
-    // // Reemplazar por img
-    // ctx.fillRect(this.pos.x, this.pos.y, this.width, this.height);
     ctx.drawImage(this.img, this.frame % this.actionFrames[this.currentAction] * 64, this.actions.indexOf(this.currentAction) * this.height, this.width, this.height, this.pos.x, this.pos.y, this.width, this.height);
   }
 
@@ -61,13 +58,6 @@ class Player extends Actor {
     this.controls.enabled = !this.controls.enabled;
     this.controls.enabled ? this.controls.start() : this.controls.stop();
   }
-
-  // draw(ctx) {
-  //   // ctx.fillStyle = "orange";
-  //   // // Reemplazar por img
-  //   // ctx.fillRect(this.pos.x, this.pos.y, this.width, this.height);
-  //   ctx.drawImage(this.img, this.frame % this.actionFrames[this.currentAction] * 64, this.actions.indexOf(this.currentAction) * this.height, this.width, this.height, this.pos.x, this.pos.y, this.width, this.height);
-  // }
 
   update() {
     super.update();
@@ -143,11 +133,6 @@ class NPC extends Actor {
     this.currentAction = "idle";
   }
 
-  // draw(ctx) {
-  //   ctx.fillStyle = "red";
-  //   ctx.fillRect(this.pos.x, this.pos.y, this.width, this.height);
-  // }
-
   update() {
     super.update();
     this.pos.x -= this.speed.x;
@@ -187,11 +172,6 @@ class Enemy extends Actor {
     }
     this.currentAction = "warning";
   }
-
-  // draw(ctx) {
-  //   ctx.fillStyle = "blue";
-  //   ctx.fillRect(this.pos.x, this.pos.y, this.width, this.height);
-  // }
 
   // Genera un proyectil en la posicion actual del enemigo
   shoot() {

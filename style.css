@@ -3,6 +3,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  user-select: none;
 }
 
 #myCanvas {
@@ -84,7 +85,6 @@
     font-weight: 900;
   }
 }
-
 
 @media screen and (max-height: 800px) {
   #myCanvas {
