@@ -11,13 +11,15 @@ class Scene {
       enemies: [],
       projectiles: []
     }
-    this.layers = ["cielo", "paisaje2", "paisaje1", "ciudad", "suelo"]; // Nombre de cada capa del fondo
-    this.flayers = ["vacio"];
   }
 
   init(speed) {
-    this.bg = this.createParallax(speed, this.layers);
-    this.fg = this.createParallax(speed, this.flayers);
+    // Obtencion de capas de fondo y frente ordenadas
+    const bgLayers = window.loader.getResourceList("bg").map(layer => layer.id).sort((a, b) => a.split("_").pop() - b.split("_").pop());
+    const fgLayers = window.loader.getResourceList("fg").map(layer => layer.id).sort((a, b) => a.split("_").pop() - b.split("_").pop());
+
+    this.bg = this.createParallax(speed, bgLayers);
+    this.fg = this.createParallax(speed, fgLayers);
     this.createPlayer();
   }
 
@@ -45,10 +47,11 @@ class Scene {
   createNpc(type) {
     let img = null;
     if(type === "NPC"){
-      const npcNumber = Math.floor(Math.random() * 4 + 1) ;
-      img = window.loader.getResource(`npc${npcNumber}_sprite`);
+      const npcs = window.loader.getResourceList("npc");
+      const npcNumber = Math.ceil(Math.random() * npcs.length) ;
+      img = window.loader.getResource(`npc_sprite_${npcNumber}`);
     } else {
-      img =  window.loader.getResource(`enemy_sprite`);
+      img =  window.loader.getResource(`enemy_sprite_1`);
     }
     const obj = { x: this.canvas.width + Math.floor(Math.random() * this.canvas.width / 4), y: this.canvas.height - this.groundHeight, width: 64, height: 64, img }
     type === "NPC" ? this.entities.npc.push(new NPC(obj)) : this.entities.enemies.push(new Enemy(obj));
@@ -90,7 +93,6 @@ class Scene {
           bullet.pos.x += this.entities.player.width / 2; // para que el enemigo dispare desde el lado derecho
         }
         this.entities.projectiles.push(bullet);
-        enemy.bullets--;
       }, 800)
     }
   }

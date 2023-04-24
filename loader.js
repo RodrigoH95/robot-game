@@ -30,6 +30,11 @@ class Loader {
     return resource.img;
   }
 
+  static getResourceList(id) {
+    const resources = this.resources.filter(asset => asset.id.includes(id));
+    return resources;
+  }
+  
   static checkGameStart() {
     if (!this.resourcesToLoad) {
       this.game.init();

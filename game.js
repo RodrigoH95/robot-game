@@ -7,6 +7,8 @@ class Game {
     this.gameSpeed = speed;
     this.gui = null;
     this.distance = 0;
+    this.fps = 60;
+    this.lastFrameDt = 0;
   }
 
   init() {
@@ -32,14 +34,19 @@ class Game {
   }
 
   checkCollissions() {
-    const entities = this.scene.getEntities();
-    Collisions.checkAllCollisions(this.screen.getCanvas(), entities.player, entities.npc, entities.enemies, entities.projectiles);
+    const { player, npc, enemies, projectiles } = this.scene.getEntities();
+    Collisions.checkAllCollisions(this.screen.getCanvas(), player, npc, enemies, projectiles);
   }
 
-  animate() {
-    if (this.isPaused) return;
-    this.update();
-    this.draw();
+  animate(time) {
+    let now = time;
+    let dif = now - this.lastFrameDt;
+    if (dif > 1000/ this.fps) {
+      this.lastFrameDt = now;
+      if (this.isPaused) return;
+      this.update();
+      this.draw();
+    }
     requestAnimationFrame(this.animate.bind(this));
   }
 
@@ -48,7 +55,7 @@ class Game {
     const bg = this.scene.getBackground();
     const fg = this.scene.getForeground();
     const { player, npc, enemies, projectiles } = this.scene.getEntities();
-    this.screen.draw(bg, player, npc, enemies, projectiles, fg);
+    this.screen.draw(bg, player, npc, enemies, projectiles, fg); // Colocados en el orden que se debe dibujar
   }
 
   update() {

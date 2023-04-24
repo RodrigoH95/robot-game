@@ -6,7 +6,7 @@ class Actor {
     this.pos = { x, y };
     this.isAlive = true;
     this.speed = {
-      x: 5,
+      x: 10,
       y: 0
     }
     this.img = img;
@@ -22,7 +22,7 @@ class Actor {
   }
 
   update() {
-      if(++this.time == 5)
+      if(++this.time == 3)
       {
         this.frame++;
         this.time = 0;
@@ -64,7 +64,7 @@ class Player extends Actor {
     this.checkControls();
     this.pos.y += this.speed.y;
     if (this.pos.y < this.groundHeight) {
-      this.speed.y += 0.8;
+      this.speed.y += 2;
     }
     if (this.pos.y >= this.groundHeight) {
       this.speed.y = 0;
@@ -83,7 +83,7 @@ class Player extends Actor {
 
   jump() {
     this.isJumping = true;
-    this.speed.y = -12;
+    this.speed.y = -15;
   }
 
   addScore(score) {
@@ -175,6 +175,7 @@ class Enemy extends Actor {
 
   // Genera un proyectil en la posicion actual del enemigo
   shoot() {
+    this.bullets--;
     this.currentAction = "shoot";
     setTimeout(() => {
       this.currentAction = "idle";
