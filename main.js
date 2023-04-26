@@ -11,6 +11,7 @@ const resources = [
   { id: "npc_sprite_3", src: "./img/npc_sprite3.png" },
   { id: "npc_sprite_4", src: "./img/npc_sprite4.png" },
   { id: "enemy_sprite_1", src: "./img/enemy_sprite.png" },
+  { id: "bala", src: "./img/bala_sprite.png" },
   { id: "fg_vacio_0", src: "./img/vacio.png" },
   { id: "bg_cielo_0", src: "./img/cielo.png" },
   { id: "bg_paisaje1_1", src: "./img/paisaje_1.png" },
