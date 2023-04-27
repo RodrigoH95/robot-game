@@ -13,11 +13,11 @@ const resources = [
   { id: "enemy_sprite_1", src: "./img/personajes/enemigos/enemy_sprite.png" },
   { id: "bala", src: "./img/personajes/enemigos/bala_sprite.png" },
   { id: "fg_vacio_0", src: "./img/paisajes/foreground/vacio.png" },
-  { id: "bg_cielo_0", src: "./img/paisajes/background/cielo.png" },
-  { id: "bg_paisaje1_1", src: "./img/paisajes/background/paisaje_1.png" },
-  { id: "bg_paisaje2_2", src: "./img/paisajes/background/paisaje_2.png" },
-  { id: "bg_ciudad_3", src: "./img/paisajes/background/ciudad.png" },
-  { id: "bg_suelo_4", src: "./img/paisajes/background/suelo.png" },
+  { id: "bg_0", src: "./img/paisajes/background/cielo.png" },
+  { id: "bg_1", src: "./img/paisajes/background/paisaje_1.png" },
+  { id: "bg_2", src: "./img/paisajes/background/paisaje_2.png" },
+  { id: "bg_3", src: "./img/paisajes/background/ciudad.png" },
+  { id: "bg_4", src: "./img/paisajes/background/suelo.png" },
 ]
 
 const game = new Game({speed: 8, groundHeight: 100, width: 768, height: 432});
