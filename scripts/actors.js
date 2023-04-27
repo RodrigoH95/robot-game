@@ -140,16 +140,16 @@ class NPC extends Actor {
 }
 
 class Bullet {
-  constructor ({x, y, speed}) {
+  constructor ({x, y, speed, img}) {
     this.pos = { x, y};
     this.speed = speed;
-    this.width = 15;
+    this.width = 16;
     this.height = 8;
+    this.img = img;
   }
 
   draw(ctx) {
-    ctx.fillStyle = "yellow";
-    ctx.fillRect(this.pos.x, this.pos.y, this.width, this.height);
+    ctx.drawImage(this.img, this.pos.x, this.pos.y, this.width, this.height);
   }
 
   update() {
@@ -180,7 +180,7 @@ class Enemy extends Actor {
     setTimeout(() => {
       this.currentAction = "idle";
     }, 150);
-    return new Bullet({x: this.pos.x, y: this.pos.y + this.height / 4, speed: this.speed.x * 3});
+    return new Bullet({x: this.pos.x, y: this.pos.y + this.height / 4, speed: this.speed.x * 3, img: window.loader.getResource("bala") });
   }
 
   update() {
