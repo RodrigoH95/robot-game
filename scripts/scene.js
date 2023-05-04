@@ -20,13 +20,13 @@ class Scene {
     const bgLayers = window.loader.getResourceList("bg").map(layer => layer.id).sort((a, b) => a.split("_").pop() - b.split("_").pop());
     const fgLayers = window.loader.getResourceList("fg").map(layer => layer.id).sort((a, b) => a.split("_").pop() - b.split("_").pop());
 
-    this.bg = this.createParallax(bgLayers);
-    this.fg = this.createParallax(fgLayers);
+    this.bg = this.createParallax(bgLayers, this.gameSpeed * 0.8);
+    this.fg = this.createParallax(fgLayers, this.gameSpeed * 2);
     this.createPlayer();
   }
 
-  createParallax(layers) {
-    const parallax = new Background(this.canvas.height, this.gameSpeed);
+  createParallax(layers, speed) {
+    const parallax = new Background(this.canvas.height, speed);
     parallax.init(layers);
     return parallax;
   }

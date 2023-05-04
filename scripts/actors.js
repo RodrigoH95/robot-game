@@ -47,7 +47,7 @@ class Player extends Actor {
     this.actions = ["run", "hit", "jump"];
     this.actionFrames = {
       "run": 6,
-      "hit": 6,
+      "hit": 2,
       "jump": 1,
     }
     this.currentAction = "run";
@@ -116,7 +116,7 @@ class Player extends Actor {
       this.frame = 0;
       setTimeout(() => {
         this.isHitting = false
-      }, 300);
+      }, 120);
     }
   }
 }

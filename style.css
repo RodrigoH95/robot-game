@@ -51,6 +51,18 @@
   width: 3rem;
   height: 3rem;
   margin: 0.5rem;
+  background: none;
+  border: none;
+}
+
+.btn > img {
+  width: 100%;
+  height: 100%;
+  user-select: none;
+}
+
+.btn:active {
+  filter: brightness(120%);
 }
 
 @media screen and (orientation: portrait) {
