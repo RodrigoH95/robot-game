@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="style.css">
+  <title>Robot</title>
+</head>
+<body>
+  <div class="container">
+    <div id="info">
+      <div><img src="./img/UI/simbolo_vida.png" alt="vidas"> x <span id="vidas">3</span></div>
+      <div>Puntaje: <span id="puntaje">0</span></div>
+    </div>
+    <canvas id="myCanvas"></canvas>
+    <div id="botones">
+      <div id="direccion">
+        <button class="btn action" id="left"><img src="./img/UI/boton_izquierdo.png" alt=""></button>
+        <button class="btn action" id="right"><img src="./img/UI/boton_derecho.png" alt=""></button>
+      </div>
+      <div id="acciones">
+        <button class="btn action" id="jump"><img src="./img/UI/boton_saltar.png" alt=""></button>
+        <button class="btn action" id="attack"><img src="./img/UI/boton_golpear.png" alt=""></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="./scripts/controls.js"></script>
+  <script src="./scripts/background.js"></script>
+  <script src="./scripts/actors.js"></script>
+  <script src="./scripts/collisions.js"></script>
+  <script src="./scripts/gui.js"></script>
+  <script src="./scripts/loader.js"></script>
+  <!-- <script src="loop.js"></script> -->
+  <script src="./scripts/graphics.js"></script>
+  <script src="./scripts/scene.js"></script>
+  <script src="./scripts/screen.js"></script>
+  <script src="./scripts/game.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

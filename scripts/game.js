@@ -72,7 +72,7 @@ class Game {
   
   gameOver() {
     this.togglePause();
-    alert("Perdiste");
-    window.location.reload();
+    // Mostrar modal en vez de redirigir ?
+    window.location.href = "./end.html";
   }
 }
