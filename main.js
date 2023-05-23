@@ -21,6 +21,11 @@ const resources = [
   { id: "bg_4", src: "./img/paisajes/background/suelo.png" },
 ]
 
+
+window.addEventListener("load", () => {
+  window.scrollTo(0, 1);
+});
+
 const game = new Game({speed: 8, groundHeight: 100, width: 768, height: 432});
 window.loader = Loader;
 loader.setGame(game);
